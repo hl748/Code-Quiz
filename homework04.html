@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
     <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        body {
+    text-align: center;
+}
+div {
+    display: none;
+}
+    </style>
 </head>
 <body>
     <section>
@@ -142,45 +149,50 @@
     <div id="scoreboard">
         <h1 id="score"></h1>
         <form>
-            <label for="nameblank">Enter Your Name:</label><br>
+            <label for="nameBlank">Enter Your Initials:</label><br>
             <input type="text" size="20" id="nameBlank" name="nameBlank"><br><br><br>
-            <input id="name" type="button" value="Submit Name">
+            <input id="name" type="button" value="Submit Score">
           </form>
           <h1>Your Scores: </h1>
-          <p id="scoreboard1"></p>
-          <h1>Name: </h1>
-          <p id="scoreboard2"></p>
+          <h2 id="scoreboard1"></h2>
     </div>
     <h1 id="timer"></h1>
     <section id="trial">
 
     </section>
     <script type="text/javascript">
+
+
    
     var score = 0;
     
      var timer = document.querySelector("#timer");
 
-var timeLeft = 20;
+var timeLeft = 120;
 
 function timerCount() {
   var countdown = setInterval(function() {
     timeLeft--;
-    timer.textContent = timeLeft;
+    timer.textContent = "Time Left: " + timeLeft + " seconds";
 
     if(timeLeft === 0) {
       clearInterval(countdown);
+      alert("You have reached the maximum time limit. Please click OK to proceed to your score.")
+      $("#q1, #q2, #q3, #q4, #q5, #q6, #q7, #q8, #q9, #q10, #q11").css("display","none")
+      $("#score").append("Your score is: " + score);
+      $("#scoreboard").attr("style","display:block")
     }
 
   }, 1000);
 }
 
-timerCount();
+
    
     $(document).ready(function() {
         $("#startButton").on("click", function() {
             $("#startButton").css("display","none")
             $("#q1").attr("style", "display: block")
+            timerCount();
             
             
         });
@@ -191,6 +203,11 @@ timerCount();
                 alert("You answered right!")
                 score++;
             }
+            else {
+                for (var i = 0; i < 5; i++) {
+                timeLeft--;
+                }
+            }
         });
         $("#s2").on("click", function () {
             $("#q2").css("display","none")
@@ -198,6 +215,11 @@ timerCount();
             if (document.getElementById("correctAnswer2").checked === true) {
                 alert("You answered right!")
                 score++;
+            }
+            else {
+                for (var i = 0; i < 5; i++) {
+                timeLeft--;
+                }
             }
             
             
@@ -209,6 +231,11 @@ timerCount();
                 alert("You answered right!")
                 score++;
             }
+            else {
+                for (var i = 0; i < 5; i++) {
+                timeLeft--;
+                }
+            }
         });
         $("#s4").on("click", function () {
             $("#q4").css("display","none")
@@ -216,6 +243,11 @@ timerCount();
             if (document.getElementById("correctAnswer4").checked === true) {
                 alert("You answered right!")
                 score++;
+            }
+            else {
+                for (var i = 0; i < 5; i++) {
+                timeLeft--;
+                }
             }
         });
         $("#s5").on("click", function () {
@@ -225,6 +257,11 @@ timerCount();
                 alert("You answered right!")
                 score++;
             }
+            else {
+                for (var i = 0; i < 5; i++) {
+                timeLeft--;
+                }
+            }
         });
         $("#s6").on("click", function () {
             $("#q6").css("display","none")
@@ -232,6 +269,11 @@ timerCount();
             if (document.getElementById("correctAnswer6").checked === true) {
                 alert("You answered right!")
                 score++;
+            }
+            else {
+                for (var i = 0; i < 5; i++) {
+                timeLeft--;
+                }
             }
         });
         $("#s7").on("click", function () {
@@ -241,6 +283,11 @@ timerCount();
                 alert("You answered right!")
                 score++;
             }
+            else {
+                for (var i = 0; i < 5; i++) {
+                timeLeft--;
+                }
+            }
         });
         $("#s8").on("click", function () {
             $("#q8").css("display","none")
@@ -248,6 +295,11 @@ timerCount();
             if (document.getElementById("correctAnswer8").checked === true) {
                 alert("You answered right!")
                 score++;
+            }
+            else {
+                for (var i = 0; i < 5; i++) {
+                timeLeft--;
+                }
             }
         });
         $("#s9").on("click", function () {
@@ -257,6 +309,11 @@ timerCount();
                 alert("You answered right!")
                 score++;
             }
+            else {
+                for (var i = 0; i < 5; i++) {
+                timeLeft--;
+                }
+            }
         });
         $("#s10").on("click", function () {
             $("#q10").css("display","none")
@@ -265,23 +322,45 @@ timerCount();
                 alert("You answered right!")
                 score++;
             }
+            else {
+                for (var i = 0; i < 5; i++) {
+                timeLeft--;
+                }
+            }
         });
         $("#s11").on("click", function () {
             $("#q11").css("display","none")
             $("#scoreboard").attr("style","display:block")
+            $("#timer").attr("style","display:none")
             if (document.getElementById("blank2").value.toLowerCase() === "cascading stylesheet") {
                 alert("You answered right!")
-                score++;
+                score++; 
+            }
+            else {
+                for (var i = 0; i < 5; i++) {
+                timeLeft--;
+                }
             }
             $("#score").append("Your score is: " + score);
             $("#scoreboard").attr("style","display:block")
-            $("#name").on("click", function() {
-            var name = document.getElementById("nameBlank").value;
-            localStorage.setItem("scoreboard1",name);
-            localStorage.setItem("scoreboard2",score);
+                var scoreboard =  JSON.parse(localStorage.getItem("namedScores"));
+                if (scoreboard){
+                    scoreboard.forEach(function (object) {
+                        $("#scoreboard1").append(object.name + ": ")
+                        $("#scoreboard1").append(object.score + ", ") 
+                    });
+                }
+                
+             $("#name").on("click", function() {
+                    var name = $("#nameBlank").val()
+                 var scoreboard =  JSON.parse(localStorage.getItem("namedScores"));
+                 if (scoreboard === null) {
+                     scoreboard = []
+                 }
+                 scoreboard.push({name: name, score: score})
+                 localStorage.setItem("namedScores",JSON.stringify(scoreboard))
+                 alert("You score has been submitted!")
             });
-            localStorage.getItem("#scoreboard1")
-            localStorage.getItem("#scoreboard2")
         });
     });
     </script>
