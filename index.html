@@ -15,7 +15,10 @@ div {
     </style>
 </head>
 <body>
-    <section>
+    <section id="startSection">
+        <h1>Coding Quiz</h1>
+        <h3>Questions: 10 <br> Time: 120 seconds</h3>
+        <p> <br> Please click the button to start the quiz:</p>
         <button id="startButton">Start Quiz</button>
     </section>
     <div id="q1">
@@ -190,7 +193,7 @@ function timerCount() {
    
     $(document).ready(function() {
         $("#startButton").on("click", function() {
-            $("#startButton").css("display","none")
+            $("#startSection").css("display","none")
             $("#q1").attr("style", "display: block")
             timerCount();
             
